@@ -1,0 +1,25 @@
+{
+  "name": "crouchy-fc-discord-bot",
+  "version": "1.0.0",
+  "description": "A moderation Discord Bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aidanohart/crouchyfc-discord-bot.git"
+  },
+  "keywords": [
+    "discordbot"
+  ],
+  "author": "aidanohart",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aidanohart/crouchyfc-discord-bot/issues"
+  },
+  "homepage": "https://github.com/aidanohart/crouchyfc-discord-bot#readme",
+  "dependencies": {
+    "discord.js": "^14.13.0"
+  }
+}
