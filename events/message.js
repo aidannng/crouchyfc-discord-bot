@@ -34,22 +34,22 @@ module.exports = {
                 if(message.mentions.members.has(userId) && !message.member.roles.cache.has(MOD_ROLE)) {
                     message.delete();
                     message.channel.send(`<@${message.author.id}>, do not ping this user. Please contact an Administrator if you need support.`);
+
+                    const embed = new EmbedBuilder()
+                    .setColor(0x0099FF)
+                    .setTitle(`Anti Tag System`)
+                    .setDescription(`
+                        **User:** <@${message.author.id}>
+                        **Message:** ${message.content}
+                        **Channel:** <#${message.channel.id}>
+                        **Time:** <t:${Math.round(+new Date()/1000)}>
+                        `
+                    )
+                    .setTimestamp()
+                    .setFooter({ text: `${message.guild.name}`, iconURL: `https://cdn.discordapp.com/icons/${message.guild.id}/${message.guild.icon}` });
+                    message.guild.channels.cache.get(LOGS_CHANNEL).send({ content: `<@${message.author.id}> tagged someone on the anti tag list`, embeds: [embed] })
                 }
             });
-
-            const embed = new EmbedBuilder()
-                .setColor(0x0099FF)
-                .setTitle(`Anti Tag System`)
-                .setDescription(`
-                    **User:** <@${message.author.id}>
-                    **Message:** ${message.content}
-                    **Channel:** <#${message.channel.id}>
-                    **Time:** <t:${Math.round(+new Date()/1000)}>
-                    `
-                )
-                .setTimestamp()
-                .setFooter({ text: `${message.guild.name}`, iconURL: `https://cdn.discordapp.com/icons/${message.guild.id}/${message.guild.icon}` });
-                message.guild.channels.cache.get(LOGS_CHANNEL).send({ content: `<@${message.author.id}> tagged someone on the anti tag list`, embeds: [embed] })
         }
 
 	},
