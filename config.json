@@ -2,12 +2,18 @@
     "token": "",
     "clientId": "",
     "guildId": "",
-
-    "db_host": "",
-    "db_user": "",
-    "db_password": "",
-    "db_database": "",
     
+    "DEVELOPER_USER_ID": "",
+    "ADMIN_ROLE": "",
+    "MOD_ROLE": "",
+
     "GENERAL_CHAT": "",
-    "JOIN_ROLE": ""
+    "WELCOME_CHAT": "",
+    "LEAVE_CHAT": "",
+    "JOIN_ROLE": "",
+    "LOGS_CHANNEL": "",
+
+    "ANTIAD_BYPASS_ROLE": "",
+
+    "BLOCK_USER_PINGS": ["", ""]
 }
