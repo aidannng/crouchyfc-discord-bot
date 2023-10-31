@@ -64,7 +64,7 @@ module.exports = {
             BLOCK_USER_PINGS.forEach(userId => {
                 if(message.mentions.members.has(userId) && !message.member.roles.cache.has(ADMIN_ROLE)) {
                     message.delete();
-                    message.channel.send(`<@${message.author.id}>, do not ping this user. Please contact an Administrator if you need support.`);
+                    message.channel.send(`<@${message.author.id}>, do not ping this user. Please create a <#${TICKETS_CHANNEL}> if you need support or have an enquiry.`);
 
                     const embed = new EmbedBuilder()
                     .setColor(0x0099FF)
