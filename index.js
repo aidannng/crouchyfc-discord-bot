@@ -101,4 +101,21 @@ const rest = new REST({ version: '10' }).setToken(token);
 	}
 })();
 
+const mysql = require('mysql2');
+const connection = mysql.createConnection({
+	host: db_host,
+	user: db_user,
+	password: db_password,
+	database: db_database,
+	port: 3306
+}); connection.connect(function(err) {
+	if(err) {
+			console.log('Can\'t connect to database');
+			console.dir(err);
+	} else {
+			console.log('Ready! Connected to MySQL database.');
+			connection.end();
+	}
+});
+
 client.login(token);
