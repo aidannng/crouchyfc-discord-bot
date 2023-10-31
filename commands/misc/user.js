@@ -7,7 +7,7 @@ module.exports = {
 		.addUserOption(option =>
             option
                 .setName('user')
-                .setDescription('The user you want to hug')
+                .setDescription('The user you want to get information about')
                 .setRequired(true)
         )
 		.setDescription('Provides information about the user.'),
