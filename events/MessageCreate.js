@@ -1,5 +1,5 @@
 const { Events, EmbedBuilder } = require('discord.js');
-const { db_host, db_user, db_password, db_database, LOGS_CHANNEL, ANTIAD_BYPASS_ROLE, BLOCK_USER_PINGS, MOD_ROLE, ADMIN_ROLE, DEVELOPER_USER_ID, TICKETS_CHANNEL } = require('../config.json');
+const { db_host, db_user, db_password, db_database, LOGS_CHANNEL, BLOCK_USER_PINGS, MOD_ROLE, ADMIN_ROLE, DEVELOPER_USER_ID, TICKETS_CHANNEL } = require('../config.json');
 const mysql = require('mysql2');
 const connection = mysql.createConnection({
 	host: db_host,
