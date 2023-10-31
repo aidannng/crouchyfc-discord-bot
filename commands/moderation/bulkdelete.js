@@ -2,7 +2,8 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const { MOD_ROLE } = require('../../config.json');
 
 module.exports = {
-	data: new SlashCommandBuilder()
+	data: 
+    new SlashCommandBuilder()
 		.setName('bulkdelete')
         .addIntegerOption(option =>
             option
@@ -12,7 +13,7 @@ module.exports = {
                 .setMinValue(1)
                 .setMaxValue(100)
         )
-		.setDescription('Delete a large amount of messages!'),
+		.setDescription('Delete a large amount of messages! (Moderator'),
 	async execute(interaction) {
         if(interaction.member.roles.cache.has(MOD_ROLE)){
             interaction.channel.bulkDelete(interaction.options.getInteger('amount'));
