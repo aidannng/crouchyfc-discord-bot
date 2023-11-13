@@ -62,7 +62,7 @@ module.exports = {
         // ANTI TAG SYSTEM
         if(message.mentions.members.size) {
             BLOCK_USER_PINGS.forEach(userId => {
-                if(message.mentions.members.has(userId) && !message.member.roles.cache.has(ADMIN_ROLE)) {
+                if(message.mentions.members.has(userId) && !message.member.roles.cache.has(MOD_ROLE) && !message.member.roles.cache.has(ADMIN_ROLE)) {
                     message.delete();
                     message.channel.send(`<@${message.author.id}>, do not ping this user. Please create a <#${TICKETS_CHANNEL}> if you need support or have an enquiry.`);
 
