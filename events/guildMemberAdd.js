@@ -8,7 +8,7 @@ module.exports = {
 
 		member.roles.add(JOIN_ROLE);
 
-		const embed = new EmbedBuilder()
+		/* const embed = new EmbedBuilder()
 		.setColor(0x0099FF)
 		.setTitle(`Welcome, ${member.user.username}!`)
 		.setDescription(`
@@ -20,6 +20,6 @@ module.exports = {
 		.setThumbnail(`https://cdn.discordapp.com/avatars/${member.id}/${member.user.avatar}.jpg`)
 		.setTimestamp()
 		.setFooter({ text: `${member.guild.name}`, iconURL: `https://cdn.discordapp.com/icons/${guildId}/${member.guild.icon}` });
-		member.guild.channels.cache.get(WELCOME_CHAT).send({ content: `<@${member.id}> Grab your sofa, grab your popcorn!`, embeds: [embed] })
+		member.guild.channels.cache.get(WELCOME_CHAT).send({ content: `<@${member.id}> Grab your sofa, grab your popcorn!`, embeds: [embed] }) */
 	},
 };
