@@ -10,7 +10,7 @@ module.exports = {
         client.channels.cache.get(GENERAL_CHAT).send(`hello world`)
 
 		// TICKETS EMBED
-		client.channels.cache.get(TICKETS_CHANNEL).bulkDelete(1)
+		/* client.channels.cache.get(TICKETS_CHANNEL).bulkDelete(1)
 
 		const embed = new EmbedBuilder()
 		.setColor(0x0099FF)
@@ -40,6 +40,6 @@ module.exports = {
 				.setEmoji('📸')
 		);
 
-		client.channels.cache.get(TICKETS_CHANNEL).send({embeds: [embed], components: [row]})
+		client.channels.cache.get(TICKETS_CHANNEL).send({embeds: [embed], components: [row]}) */
 	},
 };
