@@ -1,4 +1,4 @@
-const { ActionRowBuilder, Events, ModalBuilder, TextInputBuilder, TextInputStyle, } = require('discord.js');
+/* const { ActionRowBuilder, Events, ModalBuilder, TextInputBuilder, TextInputStyle, } = require('discord.js');
 const { db_host, db_user, db_password, db_database, MOD_ROLE, TWITCH_MOD_ROLE, HIGHLIGHTS_CHAT, DEVELOPER_USER_ID, SUPPORT_CATEGORY, TWITCH_SUPPORT_CATEGORY } = require('../config.json');
 const mysql = require('mysql2');
 const connection = mysql.createConnection({
@@ -90,4 +90,4 @@ module.exports = {
             );
         }
 	},
-};
+};a */

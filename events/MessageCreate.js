@@ -1,13 +1,13 @@
 const { Events, EmbedBuilder } = require('discord.js');
 const { db_host, db_user, db_password, db_database, LOGS_CHANNEL, BLOCK_USER_PINGS, MOD_ROLE, ADMIN_ROLE, DEVELOPER_USER_ID, TICKETS_CHANNEL } = require('../config.json');
-const mysql = require('mysql2');
+/* const mysql = require('mysql2');
 const connection = mysql.createConnection({
 	host: db_host,
 	user: db_user,
 	password: db_password,
 	database: db_database,
 	port: 3306
-});
+}); */
 
 module.exports = {
 	name: Events.MessageCreate,
@@ -15,7 +15,7 @@ module.exports = {
         if(message.author.bot) return; // ignore bots
 
         // STORE TICKET MESSAGES
-        connection.execute('SELECT id, user_id, transcript_id, channel_id, time, first_reply FROM tickets WHERE channel_id = ?',[message.channel.id],function(err, result, fields) {
+        /* connection.execute('SELECT id, user_id, transcript_id, channel_id, time, first_reply FROM tickets WHERE channel_id = ?',[message.channel.id],function(err, result, fields) {
             if(result[0]){
                 
                 if(result[0].first_reply === 0){
@@ -26,7 +26,7 @@ module.exports = {
 
                 connection.execute('INSERT INTO `ticket_messages` (`ticket_id`, `author_id`, `message`, `time`) VALUES (?, ?, ?, ?)',[result[0].id, message.author.id, message.content, Date.now()],function(err, result, fields) {});
             }
-        });
+        }); */
 
         // @THE BOT
         if (message.mentions.has(message.client.user)) {

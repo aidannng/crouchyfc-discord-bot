@@ -1,13 +1,5 @@
 const { Events, EmbedBuilder } = require('discord.js');
-const { db_host, db_user, db_password, db_database, LOGS_CHANNEL } = require('../config.json');
-/* const mysql = require('mysql2');
-const connection = mysql.createConnection({
-	host: db_host,
-	user: db_user,
-	password: db_password,
-	database: db_database,
-	port: 3306
-}); */
+const { LOGS_CHANNEL } = require('../config.json');
 
 module.exports = {
 	name: Events.MessageDelete,

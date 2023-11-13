@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+/* const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const { db_host, db_user, db_password, db_database, MOD_ROLE, TWITCH_MOD_ROLE, TRANSCRIPTS_CHANNEL } = require('../../config.json');
 const mysql = require('mysql2');
 const connection = mysql.createConnection({
@@ -55,4 +55,4 @@ module.exports = {
             await interaction.reply({ content: 'You do not have permission to use this command', ephemeral: true });
         }
     },
-};
+}; */
