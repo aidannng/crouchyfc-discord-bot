@@ -18,7 +18,7 @@ module.exports = {
         .setTimestamp()
         .setFooter({ text: `${message.guild.name}`, iconURL: `https://cdn.discordapp.com/icons/${message.guild.id}/${message.guild.icon}` });
 
-        message.guild.channels.cache.get(LOGS_CHANNEL).send({ content: `<@${message.author.id}> Deleted a message`, embeds: [embed] })
+        message.guild.channels.cache.get(LOGS_CHANNEL).send({ content: ``, embeds: [embed] })
 
 	},
 };
