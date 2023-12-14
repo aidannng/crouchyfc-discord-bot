@@ -28,17 +28,8 @@ module.exports = {
             }
         }); */
 
-        // @THE BOT
-        if (message.mentions.has(message.client.user)) {
-            if(message.author.id === DEVELOPER_USER_ID){
-                message.reply(`<@${DEVELOPER_USER_ID}>, you can have anything you want`);
-            } else {
-                message.reply('what do u want');
-            }
-        }
-
         // ANTI ADVERTISEMENT SYSTEM
-        if(message.content.includes('discord.gg')) {
+        if(message.content.includes('discord.gg')){
             if(!message.member.roles.cache.has(ADMIN_ROLE) || !message.member.roles.cache.has(MOD_ROLE)){
                 message.delete();
                 message.channel.send(`<@${message.author.id}>, do not send Discord invites in this server`)
@@ -64,7 +55,7 @@ module.exports = {
             BLOCK_USER_PINGS.forEach(userId => {
                 if(message.mentions.members.has(userId) && !message.member.roles.cache.has(MOD_ROLE) && !message.member.roles.cache.has(ADMIN_ROLE)) {
                     message.delete();
-                    message.channel.send(`<@${message.author.id}>, do not ping this user. Please create a <#${TICKETS_CHANNEL}> if you need support or have an enquiry.`);
+                    message.channel.send(`<@${message.author.id}>, do not ping this user.`);
 
                     const embed = new EmbedBuilder()
                     .setColor(0x0099FF)
@@ -78,7 +69,7 @@ module.exports = {
                     )
                     .setTimestamp()
                     .setFooter({ text: `${message.guild.name}`, iconURL: `https://cdn.discordapp.com/icons/${message.guild.id}/${message.guild.icon}` });
-                    message.guild.channels.cache.get(LOGS_CHANNEL).send({ content: `<@${message.author.id}> tagged someone on the anti tag list`, embeds: [embed] })
+                    message.guild.channels.cache.get(LOGS_CHANNEL).send({ content: ``, embeds: [embed] })
                 }
             });
         }
