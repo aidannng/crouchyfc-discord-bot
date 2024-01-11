@@ -12,6 +12,7 @@ module.exports = {
             if(interaction.channel.permissionsFor(interaction.guild.roles.everyone).has('SendMessages')){
                 userid = interaction.user.id;
                 interaction.channel.permissionOverwrites.edit(interaction.guild.roles.everyone, { SendMessages: false });
+                interaction.channel.permissionOverwrites.edit(MOD_ROLE, { SendMessages: true });
                 await interaction.reply({ content: `<@${userid}> Locked <#${interaction.channel.id}> ` });
             } else {
                 interaction.channel.permissionOverwrites.edit(interaction.guild.roles.everyone, { SendMessages: true });
