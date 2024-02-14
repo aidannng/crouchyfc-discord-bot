@@ -30,17 +30,17 @@ module.exports = {
                     await interaction.reply(`You must wait **${hours} hours** and **${minutes} minutes** until you can claim your daily reward.`);
                 } else {
                     await pool.execute('INSERT INTO daily_rewards (user, time) VALUES (?, ?)', [userId, Date.now() / 1000]);
-                    await pool.execute('UPDATE users SET coins = coins + 1000, xp = xp + 200 WHERE id = ?', [userId]);
-                    await pool.execute('INSERT INTO coins_statements (user, amount, type, description, time) VALUES (?, ?, ?, ?, ?)', [userId, 1000, "increase", "Daily Reward", Date.now()]);
+                    await pool.execute('UPDATE users SET coins = coins + 500, xp = xp + 100 WHERE id = ?', [userId]);
+                    await pool.execute('INSERT INTO coins_statements (user, amount, type, description, time) VALUES (?, ?, ?, ?, ?)', [userId, 500, "increase", "Daily Reward", Date.now()]);
 
-                    await interaction.reply('You have claimed your daily reward! You have been given **1,000 coins** and **200xp**');
+                    await interaction.reply('You have claimed your daily reward! You have been given **500 coins** and **100xp**');
                 }
             } else {
                 await pool.execute('INSERT INTO daily_rewards (user, time) VALUES (?, ?)', [userId, Date.now() / 1000]);
-                await pool.execute('UPDATE users SET coins = coins + 10000, xp = xp + 1000 WHERE id = ?', [userId]);
-                await pool.execute('INSERT INTO coins_statements (user, amount, type, description, time) VALUES (?, ?, ?, ?, ?)', [userId, 10000, "increase", "Daily Reward", Date.now()]);
+                await pool.execute('UPDATE users SET coins = coins + 1500, xp = xp + 500 WHERE id = ?', [userId]);
+                await pool.execute('INSERT INTO coins_statements (user, amount, type, description, time) VALUES (?, ?, ?, ?, ?)', [userId, 1500, "increase", "Daily Reward", Date.now()]);
 
-                await interaction.reply('You have claimed your **FIRST** daily reward! You have been given **10,000 coins** and **1,000xp**');
+                await interaction.reply('You have claimed your **FIRST** daily reward! You have been given **1,500 coins** and **500xp**');
             }
         } catch (error) {
             console.error('Error executing daily command:', error);
