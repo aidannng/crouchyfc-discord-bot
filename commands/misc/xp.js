@@ -11,29 +11,29 @@ const pool = mysql.createPool({
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('coins')
+        .setName('xp')
         .addUserOption(option =>
             option
                 .setName('user')
-                .setDescription('View the users coin balance.')
+                .setDescription('View the users amount of Xp.')
                 .setRequired(true)
         )
-        .setDescription('How many coins does the user have'),
+        .setDescription('How much Xp does the user have'),
     async execute(interaction) {
         const user = interaction.options.getUser('user');
         
         try {
-            const [rows] = await pool.execute('SELECT coins FROM users WHERE id = ?', [user.id]);
+            const [rows] = await pool.execute('SELECT xp FROM users WHERE id = ?', [user.id]);
 
             if (rows.length > 0) {
-                const coins = rows[0].coins;
+                const xp = rows[0].xp;
                 const embed = new EmbedBuilder()
                     .setColor('#0099ff')
-                    .setDescription(`<@${user.id}> has **${coins.toLocaleString()}** coins.`);
+                    .setDescription(`<@${user.id}> has **${xp.toLocaleString()}** Xp. (Level System Coming Soon)`);
 
                 await interaction.reply({ embeds: [embed] });
             } else {
-                await interaction.reply(`${user.tag} has no recorded coins.`);
+                await interaction.reply(`${user.tag} has no recorded Xp.`);
             }
         } catch (error) {
             console.error('Error executing coins command:', error);
