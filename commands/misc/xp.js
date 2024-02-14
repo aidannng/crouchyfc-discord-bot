@@ -23,13 +23,14 @@ module.exports = {
         const user = interaction.options.getUser('user');
         
         try {
-            const [rows] = await pool.execute('SELECT xp FROM users WHERE id = ?', [user.id]);
+            const [rows] = await pool.execute('SELECT u.xp, COUNT(m.id) AS messageCount FROM users u LEFT JOIN messages m ON u.id = m.user WHERE u.id = ?', [user.id]);
 
             if (rows.length > 0) {
                 const xp = rows[0].xp;
+                const messages = rows[0].messageCount;
                 const embed = new EmbedBuilder()
                     .setColor('#0099ff')
-                    .setDescription(`<@${user.id}> has **${xp.toLocaleString()}** Xp. (Level System Coming Soon)`);
+                    .setDescription(`<@${user.id}> has **${xp.toLocaleString()}** Xp and has sent **${messages.toLocaleString()}** messages. (Level System Coming Soon)`);
 
                 await interaction.reply({ embeds: [embed] });
             } else {
