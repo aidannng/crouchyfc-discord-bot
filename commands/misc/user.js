@@ -18,13 +18,10 @@ module.exports = {
 		.setDescription(`
 			**Username:** ${user.username} (<@${user.id}>)
 			**ID:** ${user.id}
-			**Created Account:** ${user.createdAt}
-			**Bot:** ${user.bot}`
-		)
+			**Bot:** ${user.bot}
+		`)
 
 		.setThumbnail(`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.jpg`)
-		.setTimestamp()
-		.setFooter({ text: `${interaction.guild.name}`, iconURL: `https://cdn.discordapp.com/icons/${guildId}/${interaction.guild.icon}` });
 		
 		await interaction.reply({ content: '', embeds: [embed] });
 	},
