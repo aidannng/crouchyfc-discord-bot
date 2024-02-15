@@ -55,7 +55,7 @@ module.exports = {
             const embed = {
                 color: 0x0099ff,
                 title: 'Coin Flip Created',
-                description: `You have created a Coin Flip for **${amount} coins** and betting on **${side}**!\nPeople can use the **\`/challenge\`** command to challenge you to a coin flip`,
+                description: `You have created a Coin Flip for **${amount} coins** and betting on **${side}**!\nPeople can use the **\`/challenge\`** command to challenge you to a coin flip\nUse the **\`/coinflips\`** command to view all the coin flips waiting for a challenger.`,
             };
 
             await interaction.reply({ embeds: [embed] });
