@@ -21,7 +21,10 @@ module.exports = {
 		const userJoined = member.joinedTimestamp;
 		const userName = member.user.username;
 
-		pool.execute('INSERT INTO users (id,username) VALUES (?,?)', [userId, userName]);
+
+		
+
+		pool.execute('INSERT IGNORE INTO users (id, username) VALUES (?, ?)', [userId, userName]);
 		pool.execute('INSERT INTO user_activity (user,time) VALUES (?,?)', [userId, userJoined]);
 	},
 };

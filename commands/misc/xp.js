@@ -16,29 +16,31 @@ module.exports = {
             option
                 .setName('user')
                 .setDescription('View the users amount of Xp.')
-                .setRequired(true)
+                .setRequired(false)
         )
         .setDescription('How much Xp does the user have'),
     async execute(interaction) {
-        const user = interaction.options.getUser('user');
-        
+        const userOption = interaction.options.getUser('user');
+        const userId = userOption ? userOption.id : interaction.user.id;
+
         try {
-            const [rows] = await pool.execute('SELECT u.xp, COUNT(m.id) AS messageCount FROM users u LEFT JOIN messages m ON u.id = m.user WHERE u.id = ?', [user.id]);
+            const [rows] = await pool.execute('SELECT u.xp, COUNT(m.id) AS messageCount FROM users u LEFT JOIN messages m ON u.id = m.user WHERE u.id = ?', [userId]);
 
             if (rows.length > 0) {
                 const xp = rows[0].xp;
                 const messages = rows[0].messageCount;
                 const embed = new EmbedBuilder()
                     .setColor('#0099ff')
-                    .setDescription(`<@${user.id}> has **${xp.toLocaleString()}** Xp and has sent **${messages.toLocaleString()}** messages. (Level System Coming Soon)`);
+                    .setDescription(`<@${userId}> has **${xp.toLocaleString()}** Xp and has sent **${messages.toLocaleString()}** messages. (Level System Coming Soon)`);
 
                 await interaction.reply({ embeds: [embed] });
             } else {
-                await interaction.reply(`${user.tag} has no recorded Xp.`);
+                await interaction.reply(`<@${userId}> has no recorded Xp.`);
             }
         } catch (error) {
-            console.error('Error executing coins command:', error);
+            console.error('Error executing xp command:', error);
             await interaction.reply('An error occurred while processing your command.');
         }
+
     },
 };

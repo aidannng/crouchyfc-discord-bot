@@ -16,15 +16,16 @@ module.exports = {
             option
                 .setName('user')
                 .setDescription('The user you want to get information about')
-                .setRequired(true)
+                .setRequired(false)
         )
         .setDescription('Provides information about the user.'),
     async execute(interaction) {
-        const user = interaction.options.getUser('user');
+        const userOption = interaction.options.getUser('user');
+        const user = userOption ? userOption.id : interaction.user.id;
 
         try {
             // Fetch user data including XP and coins from the database
-            const [rows] = await pool.execute('SELECT xp, coins FROM users WHERE id = ?', [user.id]);
+            const [rows] = await pool.execute('SELECT * FROM users WHERE id = ?', [user]);
 
             if (rows) {
                 const userData = rows[0];
@@ -35,8 +36,8 @@ module.exports = {
                 const embed = new EmbedBuilder()
                     .setColor(0x0099FF)
                     .setDescription(`
-                        **Username:** ${user.username} (<@${user.id}>)
-                        **ID:** ${user.id}
+                        **Username:** ${userData.username} (<@${user}>)
+                        **ID:** ${user}
                         **XP:** ${formattedXP}
                         **Coins:** ${formattedCoins}
                     `)

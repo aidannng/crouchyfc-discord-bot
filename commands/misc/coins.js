@@ -16,24 +16,25 @@ module.exports = {
             option
                 .setName('user')
                 .setDescription('View the users coin balance.')
-                .setRequired(true)
+                .setRequired(false)
         )
         .setDescription('How many coins does the user have'),
     async execute(interaction) {
-        const user = interaction.options.getUser('user');
+        const userOption = interaction.options.getUser('user');
+        const userId = userOption ? userOption.id : interaction.user.id;
         
         try {
-            const [rows] = await pool.execute('SELECT coins FROM users WHERE id = ?', [user.id]);
-
+            const [rows] = await pool.execute('SELECT coins FROM users WHERE id = ?', [userId]);
+        
             if (rows.length > 0) {
                 const coins = rows[0].coins;
                 const embed = new EmbedBuilder()
                     .setColor('#0099ff')
-                    .setDescription(`<@${user.id}> has **${coins.toLocaleString()}** coins.`);
-
+                    .setDescription(`<@${userId}> has **${coins.toLocaleString()}** coins.`);
+        
                 await interaction.reply({ embeds: [embed] });
             } else {
-                await interaction.reply(`${user.tag} has no recorded coins.`);
+                await interaction.reply(`<@${userId}> has no recorded coins.`);
             }
         } catch (error) {
             console.error('Error executing coins command:', error);
