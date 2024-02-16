@@ -31,14 +31,14 @@ module.exports = {
                 } else {
                     await pool.execute('INSERT INTO daily_rewards (user, time) VALUES (?, ?)', [userId, Date.now() / 1000]);
                     await pool.execute('UPDATE users SET coins = coins + 500, xp = xp + 100 WHERE id = ?', [userId]);
-                    await pool.execute('INSERT INTO coins_statements (user, amount, type, description, time) VALUES (?, ?, ?, ?, ?)', [userId, 500, "increase", "Daily Reward", Date.now()]);
+                    await pool.execute('INSERT INTO coins_statements (user, amount, type, description, time) VALUES (?, ?, ?, ?, ?)', [userId, 500, "increase", "Daily Reward", Date.now() / 1000]);
 
                     await interaction.reply('You have claimed your daily reward! You have been given **500 coins** and **100xp**');
                 }
             } else {
                 await pool.execute('INSERT INTO daily_rewards (user, time) VALUES (?, ?)', [userId, Date.now() / 1000]);
                 await pool.execute('UPDATE users SET coins = coins + 1500, xp = xp + 500 WHERE id = ?', [userId]);
-                await pool.execute('INSERT INTO coins_statements (user, amount, type, description, time) VALUES (?, ?, ?, ?, ?)', [userId, 1500, "increase", "Daily Reward", Date.now()]);
+                await pool.execute('INSERT INTO coins_statements (user, amount, type, description, time) VALUES (?, ?, ?, ?, ?)', [userId, 1500, "increase", "Daily Reward", Date.now() / 1000]);
 
                 await interaction.reply('You have claimed your **FIRST** daily reward! You have been given **1,500 coins** and **500xp**');
             }
