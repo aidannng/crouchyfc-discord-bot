@@ -68,7 +68,10 @@ module.exports = {
         await pool.execute('INSERT INTO coins_statements (user, amount, type, description, time) VALUES (?,?,?,?,?)', [winner, winnerCoins, 'increase', `Won a coinflip against <@${loser}>`, new Date() / 1000]);
         await pool.execute('INSERT INTO coins_statements (user, amount, type, description, time) VALUES (?,?,?,?,?)', [loser, coinFlipDetails.amount, 'decrease', `Lost a coinflip against <@${winner}>`, new Date() / 1000]);
 
-        return await interaction.reply(`The coinflip has been completed. The winner is <@${winner}> and they have won ${winnerCoins} coins. Loser is <@${loser}>.`);
-
+        const embed = new EmbedBuilder()
+        .setColor('#00ff51')
+        .setDescription(`The coinflip has been completed. The winner is <@${winner}> and they have won **${winnerCoins.toLocaleString()}** coins against <@${loser}>.`);
+    
+        return await interaction.reply({ content: `<@${user.id}>`, embeds: [embed] });
     },
 };
