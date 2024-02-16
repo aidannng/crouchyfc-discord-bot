@@ -70,7 +70,7 @@ module.exports = {
 
         const embed = new EmbedBuilder()
         .setColor('#00ff51')
-        .setDescription(`The coinflip has been completed. The winner is <@${winner}> and they have won **${winnerCoins.toLocaleString()}** coins against <@${loser}>.`);
+        .setDescription(`<@${winner}> has just beat <@${loser}> in a coinflip for **${winnerCoins.toLocaleString()}** coins.`);
     
         return await interaction.reply({ content: `<@${user.id}>`, embeds: [embed] });
     },
