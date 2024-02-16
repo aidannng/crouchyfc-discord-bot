@@ -49,14 +49,13 @@ module.exports = {
         const winner = Math.random() < 0.5 ? user.id : interaction.user.id;
         const loser = winner === user.id ? interaction.user.id : user.id;
 
+        // determine the winner's coins
         if(interaction.user.id === winner) {
             var winnerCoins = coinFlipDetails.amount * 2 - coinFlipDetails.amount;
         } else {
             var winnerCoins = coinFlipDetails.amount * 2;
         }
         
-
-
         // update the coinflip details
         await pool.execute('UPDATE users SET coins = coins + ? WHERE id = ?', [winnerCoins, winner]);
 
