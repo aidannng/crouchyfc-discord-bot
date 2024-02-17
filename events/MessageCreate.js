@@ -66,7 +66,7 @@ module.exports = {
             }
         });
 
-        pool.query('INSERT INTO messages (user,channel,xp,message,time) VALUES (?,?,?,?,?)', [message.author.id, message.channel.id, xp, message.content, Date.now()], (error, results) => {
+        pool.query('INSERT INTO messages (user,channel,xp,message,time) VALUES (?,?,?,?,?)', [message.author.id, message.channel.id, xp, message.content, Date.now() / 1000], (error, results) => {
             if (error) {
                 console.error('Error inserting message into database:', error);
             }
