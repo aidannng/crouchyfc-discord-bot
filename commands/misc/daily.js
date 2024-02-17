@@ -37,8 +37,8 @@ module.exports = {
                     let rewardMessage = `You have claimed your **/daily** reward! You have been given **500 coins** and **100xp**`;
 
                     if(roles.has(MOD_ROLE)) {
-                        rewardMessage += `\nYou have got an additonal **1,000 coins** and **200xp** for being a <@&${MOD_ROLE}>!`;
-                        coins += 1000
+                        rewardMessage += `\nYou have got an additonal **3,000 coins** and **200xp** for being a <@&${MOD_ROLE}>!`;
+                        coins += 3000
                         xp += 200
                     }
 
