@@ -1,5 +1,5 @@
-const { SlashCommandBuilder } = require('discord.js');
-const { db_host, db_user, db_password, db_database } = require('../../config.json');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { MOD_ROLE, COMMUNITY_VIP_ROLE, NITRO_ROLE, TWITCH_SUB_ROLE, db_host, db_user, db_password, db_database } = require('../../config.json');
 const mysql = require('mysql2/promise'); // Import the promise-based version of mysql
 
 const pool = mysql.createPool({
@@ -29,11 +29,46 @@ module.exports = {
 
                     await interaction.reply(`You must wait **${hours} hours** and **${minutes} minutes** until you can claim your daily reward.`);
                 } else {
-                    await pool.execute('INSERT INTO daily_rewards (user, time) VALUES (?, ?)', [userId, Date.now() / 1000]);
-                    await pool.execute('UPDATE users SET coins = coins + 500, xp = xp + 100 WHERE id = ?', [userId]);
-                    await pool.execute('INSERT INTO coins_statements (user, amount, type, description, time) VALUES (?, ?, ?, ?, ?)', [userId, 500, "increase", "Daily Reward", Date.now() / 1000]);
+                    let coins = 500
+                    let xp = 100
 
-                    await interaction.reply('You have claimed your daily reward! You have been given **500 coins** and **100xp**');
+                    const member = await interaction.guild.members.fetch(userId);
+                    const roles = member.roles.cache;
+                    let rewardMessage = `You have claimed your **/daily** reward! You have been given **500 coins** and **100xp**`;
+
+                    if(roles.has(MOD_ROLE)) {
+                        rewardMessage += `\nYou have got an additonal **1,000 coins** and **200xp** for being a <@&${MOD_ROLE}>!`;
+                        coins += 1000
+                        xp += 200
+                    }
+
+                    if (roles.has(COMMUNITY_VIP_ROLE)) {
+                        rewardMessage += `\nYou have got an additonal **2,000 coins** and **250xp** for being a <@&${COMMUNITY_VIP_ROLE}>!`;
+                        coins += 2000
+                        xp += 250
+                    }
+
+                    if (roles.has(NITRO_ROLE)) {
+                        rewardMessage += `\nYou have got an additonal **1,000 coins** and **125xp** for being a <@&${NITRO_ROLE}>!`;
+                        coins += 1000
+                        xp += 125
+                    }
+
+                    if (roles.has(TWITCH_SUB_ROLE)) {
+                        rewardMessage += `\nYou have got an additonal **1,500 coins** and **150xp** for being a <@&${TWITCH_SUB_ROLE}>!`;
+                        coins += 1500
+                        xp += 150
+                    }
+
+                    const embed = new EmbedBuilder()
+                        .setColor('#0099ff')
+                        .setDescription(` ${rewardMessage}`);
+
+                    await pool.execute('INSERT INTO daily_rewards (user, time) VALUES (?, ?)', [userId, Date.now() / 1000]);
+                    await pool.execute('UPDATE users SET coins = coins + ?, xp = xp + ? WHERE id = ?', [coins, xp, userId]);
+                    await pool.execute('INSERT INTO coins_statements (user, amount, type, description, time) VALUES (?, ?, ?, ?, ?)', [userId, coins, "increase", "Daily Reward", Date.now() / 1000]);
+
+                    await interaction.reply({ embeds: [embed] });
                 }
             } else {
                 await pool.execute('INSERT INTO daily_rewards (user, time) VALUES (?, ?)', [userId, Date.now() / 1000]);
