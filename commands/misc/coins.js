@@ -37,7 +37,7 @@ module.exports = {
                 await interaction.reply(`<@${userId}> has no recorded coins.`);
             }
         } catch (error) {
-            console.error('Error executing coins command:', error);
+            console.error('Error executing /coins command:', error);
             await interaction.reply('An error occurred while processing your command.');
         }
     },

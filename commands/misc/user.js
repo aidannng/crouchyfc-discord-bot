@@ -48,7 +48,7 @@ module.exports = {
                 await interaction.reply({ content: 'No data found for the specified user.', ephemeral: true });
             }
         } catch (error) {
-            console.error('Error fetching user data:', error);
+            console.error('Error executing /user command:', error);
             await interaction.reply({ content: 'An error occurred while fetching user data.', ephemeral: true });
         }
     },

@@ -44,7 +44,7 @@ module.exports = {
                 await interaction.reply({ embeds: [embed] });
             }
         } catch (error) {
-            console.error('Error fetching coin flips:', error);
+            console.error('Error executing /coinflip command:', error);
             await interaction.reply('An error occurred while processing your command.');
         }
     },

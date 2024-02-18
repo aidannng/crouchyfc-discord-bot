@@ -38,7 +38,7 @@ module.exports = {
                 await interaction.reply(`<@${userId}> has no recorded Xp.`);
             }
         } catch (error) {
-            console.error('Error executing xp command:', error);
+            console.error('Error executing /xp command:', error);
             await interaction.reply('An error occurred while processing your command.');
         }
 

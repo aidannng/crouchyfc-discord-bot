@@ -27,7 +27,7 @@ module.exports = {
             // Send the embedded message
             await interaction.reply({ embeds: [embed] });
         } catch (error) {
-            console.error('Error executing cointop command:', error);
+            console.error('Error executing /xptop command:', error);
             await interaction.reply('An error occurred while processing your command.');
         }
     },

@@ -60,7 +60,7 @@ module.exports = {
 
             await interaction.reply({ embeds: [embed] });
         } catch (error) {
-            console.error('Error creating coin flip:', error);
+            console.error('Error executing /cf command:', error);
             await interaction.reply('An error occurred while processing your command.');
         }
     },

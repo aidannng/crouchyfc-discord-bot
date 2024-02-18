@@ -41,7 +41,7 @@ module.exports = {
                 await interaction.reply('No game history found for the specified user.');
             }
         } catch (error) {
-            console.error('Error fetching game history:', error);
+            console.error('Error executing /history command:', error);
             await interaction.reply('An error occurred while fetching game history.');
         }
     },

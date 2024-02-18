@@ -62,7 +62,7 @@ module.exports = {
         
             await interaction.reply({ content: `<@${user.id}>`, embeds: [embed] });
         } catch (error) {
-            console.error('Error executing pay command:', error);
+            console.error('Error executing /pay command:', error);
             await interaction.reply('An error occurred while processing your command.');
         }
 
