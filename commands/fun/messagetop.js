@@ -15,7 +15,7 @@ module.exports = {
         .setDescription('View the Top 10 users with the most messages sent.'),
     async execute(interaction) {
         try {
-            const [rows] = await pool.execute('SELECT u.id, (SELECT COUNT(*) FROM messages m WHERE m.user = u.id) AS message_count FROM users u ORDER BY message_count DESC LIMIT 10');
+            const [rows] = await pool.execute('SELECT u.id, IFNULL(m.message_count, 0) AS message_count FROM users u LEFT JOIN (SELECT user, COUNT(*) AS message_count FROM messages GROUP BY user) m ON u.id = m.user ORDER BY message_count DESC LIMIT 10');
 
             const topUsers = rows.map((row, index) => `**${index + 1}.** <@${row.id}> - **${row.message_count.toLocaleString()}** Messages Sent`);
 
