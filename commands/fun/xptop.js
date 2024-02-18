@@ -15,7 +15,7 @@ module.exports = {
         .setDescription('View the Top 10 users with the most Xp.'),
     async execute(interaction) {
         try {
-            c/* onst [rows] = await pool.execute('SELECT u.id, u.xp, COUNT(m.id) AS message_count FROM users u LEFT JOIN messages m ON u.id = m.user GROUP BY u.id ORDER BY u.xp DESC LIMIT 10');
+            /* const [rows] = await pool.execute('SELECT u.id, u.xp, COUNT(m.id) AS message_count FROM users u LEFT JOIN messages m ON u.id = m.user GROUP BY u.id ORDER BY u.xp DESC LIMIT 10');
 
             const topUsers = rows.map((row, index) => `**${index + 1}.** <@${row.id}> - ${row.xp.toLocaleString()} Xp (${row.message_count.toLocaleString()} Messages Sent)`);
 
