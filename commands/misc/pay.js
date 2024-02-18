@@ -54,6 +54,7 @@ module.exports = {
             await pool.execute('UPDATE users SET coins = coins + ? WHERE id = ?', [amount, user.id]);
             await pool.execute('INSERT INTO coins_statements (user, amount, type, description, time) VALUES (?, ?, ?, ?, ?)', [interaction.user.id, amount, "decrease", `Sent ${amount} coins to ${user.username}`, Date.now() / 1000]);
             await pool.execute('INSERT INTO coins_statements (user, amount, type, description, time) VALUES (?, ?, ?, ?, ?)', [user.id, amount, "increase", `Received ${amount} coins from ${interaction.user.username}`, Date.now() / 1000]);
+            await pool.execute('INSERT INTO coins_payment (`from`, `to`, amount, time) VALUES (?, ?, ?, ?)', [interaction.user.id, user.id, amount, Date.now() / 1000]);
 
             const embed = new EmbedBuilder()
             .setColor('#00ff51')
