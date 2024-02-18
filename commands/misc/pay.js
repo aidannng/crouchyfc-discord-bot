@@ -49,7 +49,6 @@ module.exports = {
             return await interaction.reply({ embeds: [embed] });
         }
 
-        // send coins to other user and remove coins from interaction
         try {
             await pool.execute('UPDATE users SET coins = coins - ? WHERE id = ?', [amount, interaction.user.id]);
             await pool.execute('UPDATE users SET coins = coins + ? WHERE id = ?', [amount, user.id]);

@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const { db_host, db_user, db_password, db_database } = require('../../config.json');
+const { getLevel } = require('../../functions');
 const mysql = require('mysql2/promise'); // Import the promise-based version of mysql
 
 const pool = mysql.createPool({
@@ -25,21 +26,24 @@ module.exports = {
 
         try {
             // Fetch user data including XP and coins from the database
-            const [rows] = await pool.execute('SELECT * FROM users WHERE id = ?', [user]);
+            const [rows] = await pool.execute('SELECT u.*, COALESCE(m.message_count, 0) AS message_count FROM users u LEFT JOIN (SELECT user, COUNT(id) AS message_count FROM messages GROUP BY user) m ON u.id = m.user WHERE u.id = ?', [user])
 
             if (rows) {
                 const userData = rows[0];
 
 				const formattedXP = userData.xp.toLocaleString();
 				const formattedCoins = userData.coins.toLocaleString();
+                const formattedMessages = userData.message_count.toLocaleString();
+                const level = getLevel(userData.xp);
 
                 const embed = new EmbedBuilder()
                     .setColor(0x0099FF)
                     .setDescription(`
                         **Username:** ${userData.username} (<@${user}>)
                         **ID:** ${user}
-                        **XP:** ${formattedXP}
+                        **XP:** ${formattedXP} (Level ${level})
                         **Coins:** ${formattedCoins}
+                        **Messages:** ${formattedMessages}
                     `)
                     .setThumbnail(`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.jpg`);
 

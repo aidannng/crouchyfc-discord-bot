@@ -1,6 +1,7 @@
 const { Events, EmbedBuilder } = require('discord.js');
 const { db_host, db_user, db_password, db_database, LOGS_CHANNEL, BLOCK_USER_PINGS, MOD_ROLE, MANAGEMENT_ROLE } = require('../config.json');
-const mysql = require('mysql2');
+const { getLevel, getLevelUpCoins } = require('../functions');
+const mysql = require('mysql2/promise'); // Import the promise-based version of mysql
 const pool = mysql.createPool({
     host: db_host,
     user: db_user,
@@ -8,14 +9,11 @@ const pool = mysql.createPool({
     database: db_database
 });
 
-// Function to calculate XP based on message length
 function calculateXP(message) {
-    // Define XP parameters (adjust as needed)
-    const minXP = 1; // Minimum XP awarded
-    const maxXP = 25; // Maximum XP awarded
-    const maxLength = 500; // Maximum message length to award max XP
+    const minXP = 1; 
+    const maxXP = 25;
+    const maxLength = 500;
 
-    // Calculate XP based on message length
     const messageLength = Math.min(message.content.length, maxLength);
     const xp = minXP + Math.floor((maxXP - minXP) * (messageLength / maxLength));
     return xp;
@@ -23,7 +21,7 @@ function calculateXP(message) {
 
 module.exports = {
     name: Events.MessageCreate,
-    execute(message) {
+    async execute(message) {
         if(message.author.bot) return; // ignore bots
 
         // ANTI ADVERTISEMENT SYSTEM
@@ -58,19 +56,30 @@ module.exports = {
             });
         }
 
-        // ADD XP
-        const xp = calculateXP(message);
-        pool.query('UPDATE users SET xp = xp + ? WHERE id = ?', [xp, message.author.id], (error, results) => {
-            if (error) {
-                console.error('Error updating user XP in database:', error);
-            }
-        });
+        // XP / LEVEL SYSTEM
+        try {
+            const [rows] = await pool.execute('SELECT xp FROM users WHERE id = ?', [message.author.id]);
+            const oldXp = rows[0]?.xp || 0;
 
-        pool.query('INSERT INTO messages (user,channel,xp,message,time) VALUES (?,?,?,?,?)', [message.author.id, message.channel.id, xp, message.content, Date.now() / 1000], (error, results) => {
-            if (error) {
-                console.error('Error inserting message into database:', error);
+            const xp = calculateXP(message);
+            await pool.execute('UPDATE users SET xp = xp + ? WHERE id = ?', [xp, message.author.id]);
+            await pool.execute('INSERT INTO messages (user,channel,xp,message,time) VALUES (?,?,?,?,?)', [message.author.id, message.channel.id, xp, message.content, Date.now() / 1000]);
+
+            const newxp = oldXp + xp;
+            const oldLevel = getLevel(oldXp);
+            const newLevel = getLevel(newxp);
+
+            if (newLevel > oldLevel) {
+                const rewardCoins = getLevelUpCoins(newLevel)
+                const embed = new EmbedBuilder()
+                .setColor('#F8D664')
+                .setDescription(`<@${message.author.id}> has leveled up to **Level ${newLevel}** and been given **${rewardCoins}** coins!`);
+            
+                await message.reply({ embeds: [embed] });
+                await pool.execute('UPDATE users SET coins = coins + ? WHERE id = ?', [rewardCoins, message.author.id]);
             }
-        });
-        
+        } catch (error) {
+            console.error('Error processing message:', error);
+        }
     },
 };

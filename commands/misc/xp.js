@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const { guildId, db_host, db_user, db_password, db_database } = require('../../config.json');
+const { getLevel } = require('../../functions');
 const mysql = require('mysql2/promise'); // Import the promise-based version of mysql
 
 const pool = mysql.createPool({
@@ -33,7 +34,7 @@ module.exports = {
 
                 const embed = new EmbedBuilder()
                     .setColor('#0099ff')
-                    .setDescription(`<@${userId}> has **${xp.toLocaleString()}** Xp and sent **${messages.toLocaleString()}** messages (${averagexp}Xp per message)`);
+                    .setDescription(`<@${userId}> has **${xp.toLocaleString()}** Xp and sent **${messages.toLocaleString()}** messages (${averagexp}Xp/message) and is **Level ${getLevel(xp)}**.`);
 
                 await interaction.reply({ embeds: [embed] });
             } else {
