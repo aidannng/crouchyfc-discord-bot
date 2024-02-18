@@ -14,7 +14,7 @@ module.exports = {
     async execute(interaction) {
         const userid = interaction.user.id;
 
-        if(interaction.member.roles.cache.has(MOD_ROLE)) {
+        if(!interaction.member.roles.cache.has(MOD_ROLE)) {
             const embed = new EmbedBuilder()
                     .setColor('#ff0000')
                     .setDescription(`You are not authorized to use this command.`);
