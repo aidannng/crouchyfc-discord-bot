@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-const { DEVELOPER_USER_ID, CHATGPT_API_KEY } = require('../../config.json');
+const { MOD_ROLE, CHATGPT_API_KEY } = require('../../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -14,7 +14,7 @@ module.exports = {
     async execute(interaction) {
         const userid = interaction.user.id;
 
-        if(userid !== DEVELOPER_USER_ID ) {
+        if(interaction.member.roles.cache.has(MOD_ROLE)) {
             const embed = new EmbedBuilder()
                     .setColor('#ff0000')
                     .setDescription(`You are not authorized to use this command.`);
