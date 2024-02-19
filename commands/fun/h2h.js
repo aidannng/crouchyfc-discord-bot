@@ -40,9 +40,9 @@ module.exports = {
 
         const [rows] = await pool.query('SELECT * FROM coin_flips WHERE (challenger = ? AND created = ?) OR (challenger = ? AND created = ?)', [userid, userid2, userid2, userid]);
         
-        const toalGames = rows.length;
+        const totalGames = rows.length;
 
-        if(toalGames === 0) {
+        if(totalGames === 0) {
             const embed = new EmbedBuilder()
                 .setDescription(`There is no match history between <@${userid}> and <@${userid2}>.`)
                 .setColor('#ff0000');
@@ -66,7 +66,7 @@ module.exports = {
         const user2WinPercentage = parseFloat(((user2Wins / totalGames) * 100).toFixed(2));        
 
         const embed = new EmbedBuilder()
-            .setDescription(`**Head to Head Record - <@${userid}> vs <@${userid2}>**\n\n**${toalGames}** Matches Played \n<@${userid}> has **${user1Wins} wins** (${user1WinPercentage}%)\n<@${userid2}> has **${user2Wins} wins** (${user2WinPercentage}%)`)
+            .setDescription(`**Head to Head Record - <@${userid}> vs <@${userid2}>**\n\n**${totalGames}** Matches Played \n<@${userid}> has **${user1Wins} wins** (${user1WinPercentage}%)\n<@${userid2}> has **${user2Wins} wins** (${user2WinPercentage}%)`)
             .setColor('#0099ff');
 
         interaction.reply({ embeds: [embed] });
