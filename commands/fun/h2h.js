@@ -62,8 +62,8 @@ module.exports = {
             }
         });
 
-        const user1WinPercentage = (user1Wins / toalGames) * 100;
-        const user2WinPercentage = (user2Wins / toalGames) * 100;
+        const user1WinPercentage = parseFloat(((user1Wins / totalGames) * 100).toFixed(2));
+        const user2WinPercentage = parseFloat(((user2Wins / totalGames) * 100).toFixed(2));        
 
         const embed = new EmbedBuilder()
             .setDescription(`**Head to Head Record - <@${userid}> vs <@${userid2}>**\n\n**${toalGames}** Matches Played \n<@${userid}> has **${user1Wins} wins** (${user1WinPercentage}%)\n<@${userid2}> has **${user2Wins} wins** (${user2WinPercentage}%)`)
