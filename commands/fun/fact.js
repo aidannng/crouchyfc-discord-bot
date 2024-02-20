@@ -101,7 +101,13 @@ module.exports = {
             const biggestCoinflipAmount = biggestCoinflip.amount;
             const biggestCoinflipAmountFormatted = biggestCoinflipAmount.toLocaleString();
 
-            embedMessage = `The biggest coinflip win was **${biggestCoinflipAmountFormatted}** coins, won by <@${biggestCoinflip.winner}> against <@${biggestCoinflip.challenger}>.`
+            if(biggestCoinflipAmount.challenger === biggestCoinflip.winner) {
+                const againstId = biggestCoinflip.created;
+            } else {
+                const againstId = biggestCoinflip.challenger;
+            }
+
+            embedMessage = `The biggest coinflip win was **${biggestCoinflipAmountFormatted}** coins, won by <@${biggestCoinflip.winner}> against <@${againstId}>.`
         } else if(randomNumber === 8) {
             // sum of coins sent using /pay || who has sent the most money using /pay || who has received the most money using /pay
             const [payResult] = await pool.execute('SELECT SUM(amount) AS total FROM coins_payment');
